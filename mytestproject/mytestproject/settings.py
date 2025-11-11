@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'notes' # новая приложуха мае
+    'notes',
+    'category' # новая приложуха мае
 ]
 
 MIDDLEWARE = [
