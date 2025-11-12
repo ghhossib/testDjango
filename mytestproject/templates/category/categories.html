@@ -1,13 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <ul>
-    {% for category in notes_html %}
-        <li>
-            <a href="{% url 'one_category' category.id %}">{{ category.name }}</a>
-            <p>{{ category.description }}</p>
-        </li>
-    {% endfor %}
-    </ul>
-<a href="{% url 'category_create' %}">Добавить категорию</a>
+<a href="{% url 'categories' %}" > В список категориий</a>
+<h1>Категория № {{ category.id }}</h1>
+<h2> Название {{ category.category }} </h2>
+<p> {{ category.description}}  </p>
+<a href="{% url 'delete_category' category.id%}">Удалить категорию</a>
+<a href="{% url 'update_category' category.id%}">Удалить категорию</a>
 {% endblock %}
