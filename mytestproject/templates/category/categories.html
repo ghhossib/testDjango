@@ -1,10 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<a href="{% url 'categories' %}" > В список категориий</a>
-<h1>Категория № {{ category.id }}</h1>
-<h2> Название {{ category.category }} </h2>
-<p> {{ category.description}}  </p>
-<a href="{% url 'delete_category' category.id%}">Удалить категорию</a>
-<a href="{% url 'update_category' category.id%}">Удалить категорию</a>
+    <ul>
+    {% for category in categories %}
+        <li>
+            <a href="{% url 'category' category.id %}">Перейти в категорию</a>
+            <p>{{ category.category }}</p>
+            <p>{{ category.description }}</p>
+
+        </li>
+    {% endfor%}
+    </ul>
 {% endblock %}

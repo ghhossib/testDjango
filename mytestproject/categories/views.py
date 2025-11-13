@@ -10,13 +10,13 @@ from .forms import CategoryForm
 def get(request): # получаем заметки из бд
     categories = Category.objects.all()
 
-    return render(request, 'categories/categories.html', {'categories':categories})
+    return render(request, 'category/categories.html', {'categories':categories})
 
 
 def show(request,id):
     category = get_object_or_404(Category,pk=id)
     #return HttpResponse(f'<h1> {note.title}</h1><p>{note.body}</p>')
-    return render(request,'category/category.html', {'note_html':category})
+    return render(request,'category/category.html', {'category':category})
 
 
 
