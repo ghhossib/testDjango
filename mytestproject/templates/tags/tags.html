@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Теги</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .tag { border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 5px; }
+        .actions { margin-top: 10px; }
+        .btn { padding: 8px 15px; margin: 5px; text-decoration: none; border-radius: 3px; }
+        .btn-primary { background: #007bff; color: white; }
+        .btn-danger { background: #dc3545; color: white; }
+        .btn-warning { background: #ffc107; color: black; }
+        .tag-badge { display: inline-block; padding: 5px 10px; background: #6c757d; color: white; border-radius: 15px; }
+    </style>
+</head>
+<body>
+    <h1>Все теги</h1>
+
+    <a href="{% url 'add-tag' %}" class="btn btn-primary">Добавить тег</a>
+
+    <div class="tags-list">
+        {% for tag in tags %}
+        <div class="tag">
+            <h3>
+                <span class="tag-badge">{{ tag.name }}</span>
+            </h3>
+            <p><strong>Описание:</strong> {{ tag.description|default:"Нет описания" }}</p>
+            <p><strong>Цвет:</strong> <span style="color: {{ tag.color }}">{{ tag.color }}</span></p>
+
+            <div class="actions">
+                <a href="{% url 'tag' tag.id %}" class="btn btn-primary">Просмотреть</a>
+                <a href="{% url 'update-tag' tag.id %}" class="btn btn-warning">Редактировать</a>
+                <a href="{% url 'delete-tag' tag.id %}" class="btn btn-danger"
+                   onclick="return confirm('Удалить этот тег?')">Удалить</a>
+            </div>
+        </div>
+        {% empty %}
+        <p>Тегов пока нет.</p>
+        {% endfor %}
+    </div>
+
+    <a href="/">На главную</a>
+</body>
+</html>

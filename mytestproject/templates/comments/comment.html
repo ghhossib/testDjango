@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Комментарий #{{ comment.id }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .comment-detail { border: 1px solid #ddd; padding: 20px; border-radius: 5px; }
+        .btn { padding: 8px 15px; margin: 5px; text-decoration: none; border-radius: 3px; }
+        .btn-primary { background: #007bff; color: white; }
+        .btn-danger { background: #dc3545; color: white; }
+        .btn-warning { background: #ffc107; color: black; }
+    </style>
+</head>
+<body>
+    <h1>Комментарий #{{ comment.id }}</h1>
+
+    <div class="comment-detail">
+        <p><strong>ID:</strong> {{ comment.id }}</p>
+        <p><strong>Текст:</strong> {{ comment.text }}</p>
+        <p><strong>Автор:</strong> {{ comment.author }}</p>
+        <p><strong>Заметка:</strong> {{ comment.note.title }}</p>
+        <p><strong>Дата создания:</strong> {{ comment.created_at }}</p>
+        <p><strong>Дата обновления:</strong> {{ comment.updated_at }}</p>
+    </div>
+
+    <div class="actions">
+        <a href="{% url 'update-comment' comment.id %}" class="btn btn-warning">Редактировать</a>
+        <a href="{% url 'delete-comment' comment.id %}" class="btn btn-danger"
+           onclick="return confirm('Удалить этот комментарий?')">Удалить</a>
+        <a href="{% url 'comments' %}" class="btn btn-primary">Назад к списку</a>
+    </div>
+</body>
+</html>

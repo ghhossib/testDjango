@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ title_page }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .form-container { max-width: 500px; }
+        .form-group { margin: 15px 0; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        textarea { min-height: 80px; resize: vertical; }
+        .btn {
+            padding: 10px 20px;
+            margin: 5px;
+            text-decoration: none;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .btn-primary { background: #007bff; color: white; }
+        .btn-secondary { background: #6c757d; color: white; }
+        .error { color: #dc3545; font-size: 0.9em; margin-top: 5px; }
+        .help-text { color: #666; font-size: 0.8em; margin-top: 5px; }
+        .color-preview {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 1px solid #ddd;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ title_page }}</h1>
+
+    <div class="form-container">
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="id_name">Название тега:</label>
+                <input type="text" name="name" id="id_name"
+                       value="{{ form.name.value|default:'' }}"
+                       placeholder="Введите название тега">
+                {% if form.name.errors %}
+                <div class="error">{{ form.name.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_description">Описание:</label>
+                <textarea name="description" id="id_description"
+                          placeholder="Введите описание тега...">{{ form.description.value|default:'' }}</textarea>
+                {% if form.description.errors %}
+                <div class="error">{{ form.description.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_color">Цвет:
+                    <span class="color-preview" id="colorPreview"
+                          style="background-color: {{ form.color.value|default:'#007bff' }}"></span>
+                </label>
+                <input type="color" name="color" id="id_color"
+                       value="{{ form.color.value|default:'#007bff' }}"
+                       style="height: 40px;">
+                {% if form.color.errors %}
+                <div class="error">{{ form.color.errors }}</div>
+                {% endif %}
+                <div class="help-text">Выберите цвет для визуального отображения тега</div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">
+                    {% if 'Изменить' in title_page %}Обновить{% else %}Создать{% endif %}
+                </button>
+                <a href="{% url 'tags' %}" class="btn btn-secondary">Отмена</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Обновление превью цвета в реальном времени
+        document.getElementById('id_color').addEventListener('input', function() {
+            document.getElementById('colorPreview').style.backgroundColor = this.value;
+        });
+    </script>
+</body>
+</html>

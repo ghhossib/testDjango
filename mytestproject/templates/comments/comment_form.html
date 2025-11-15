@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ title_page }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .form-container { max-width: 600px; }
+        .form-group { margin: 15px 0; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        textarea { min-height: 100px; resize: vertical; }
+        .btn {
+            padding: 10px 20px;
+            margin: 5px;
+            text-decoration: none;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .btn-primary { background: #007bff; color: white; }
+        .btn-secondary { background: #6c757d; color: white; }
+        .error { color: #dc3545; font-size: 0.9em; margin-top: 5px; }
+        .help-text { color: #666; font-size: 0.8em; margin-top: 5px; }
+    </style>
+</head>
+<body>
+    <h1>{{ title_page }}</h1>
+
+    <div class="form-container">
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="id_text">Текст комментария:</label>
+                <textarea name="text" id="id_text" placeholder="Введите текст комментария...">{{ form.text.value|default:'' }}</textarea>
+                {% if form.text.errors %}
+                <div class="error">{{ form.text.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_author">Автор:</label>
+                <input type="text" name="author" id="id_author"
+                       value="{{ form.author.value|default:'' }}"
+                       placeholder="Введите имя автора">
+                {% if form.author.errors %}
+                <div class="error">{{ form.author.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_note">Заметка:</label>
+                <select name="note" id="id_note">
+                    <option value="">Выберите заметку</option>
+                    {% for note in form.note.field.queryset %}
+                    <option value="{{ note.id }}"
+                            {% if form.note.value == note.id %}selected{% endif %}>
+                        {{ note.title }}
+                    </option>
+                    {% endfor %}
+                </select>
+                {% if form.note.errors %}
+                <div class="error">{{ form.note.errors }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">
+                    {% if 'Изменить' in title_page %}Обновить{% else %}Создать{% endif %}
+                </button>
+                <a href="{% url 'comments' %}" class="btn btn-secondary">Отмена</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Комментарии</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .comment { border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 5px; }
+        .actions { margin-top: 10px; }
+        .btn { padding: 8px 15px; margin: 5px; text-decoration: none; border-radius: 3px; }
+        .btn-primary { background: #007bff; color: white; }
+        .btn-danger { background: #dc3545; color: white; }
+        .btn-warning { background: #ffc107; color: black; }
+    </style>
+</head>
+<body>
+    <h1>Все комментарии</h1>
+    
+    <a href="{% url 'add-comment' %}" class="btn btn-primary">Добавить комментарий</a>
+    
+    <div class="comments-list">
+        {% for comment in comments %}
+        <div class="comment">
+            <h3>Комментарий #{{ comment.id }}</h3>
+            <p><strong>Текст:</strong> {{ comment.text }}</p>
+            <p><strong>Автор:</strong> {{ comment.author }}</p>
+            <p><strong>Дата создания:</strong> {{ comment.created_at }}</p>
+            
+            <div class="actions">
+                <a href="{% url 'comment' comment.id %}" class="btn btn-primary">Просмотреть</a>
+                <a href="{% url 'update-comment' comment.id %}" class="btn btn-warning">Редактировать</a>
+                <a href="{% url 'delete-comment' comment.id %}" class="btn btn-danger" 
+                   onclick="return confirm('Удалить этот комментарий?')">Удалить</a>
+            </div>
+        </div>
+        {% empty %}
+        <p>Комментариев пока нет.</p>
+        {% endfor %}
+    </div>
+    
+    <a href="/">На главную</a>
+</body>
+</html>

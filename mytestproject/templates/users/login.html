@@ -86,6 +86,7 @@
                                         <i class="fas fa-envelope"></i>
                                     </span>
                                     {{ form.username }}
+
                                 </div>
                             </div>
 
@@ -155,20 +156,7 @@
             }
         });
 
-        // Обработка формы
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
 
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            // Здесь должна быть логика авторизации
-            console.log('Email:', email);
-            console.log('Password:', password);
-
-            // Пример успешной авторизации
-            alert('Авторизация успешна!');
-        });
     </script>
 </body>
 </html>

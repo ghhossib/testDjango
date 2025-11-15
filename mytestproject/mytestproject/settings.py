@@ -43,7 +43,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users',
     'notes',
-    'categories' # новая приложуха мае
+    'categories', # новая приложуха мае
+    'comments', # новая приложуха мае
+    'tags', # новая приложуха мае
 ]
 
 MIDDLEWARE = [
