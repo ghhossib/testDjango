@@ -9,7 +9,7 @@ def get(request):
 
 def show(request, id):
     comment = get_object_or_404(Comment, pk=id)
-    return render(request, 'comments/comments.html', {'comment': comment})
+    return render(request, 'comments/comment.html', {'comment': comment})
 
 def delete(request, id):
     comment = get_object_or_404(Comment, pk=id)

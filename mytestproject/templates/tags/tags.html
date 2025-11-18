@@ -24,6 +24,7 @@
             <h3>
                 <span class="tag-badge">{{ tag.name }}</span>
             </h3>
+
             <p><strong>Описание:</strong> {{ tag.description|default:"Нет описания" }}</p>
             <p><strong>Цвет:</strong> <span style="color: {{ tag.color }}">{{ tag.color }}</span></p>
 
@@ -39,6 +40,7 @@
         {% endfor %}
     </div>
 
-    <a href="/">На главную</a>
+    <a href="/">Выйти</a>
+    <a href="/comments">Перейти в комментарии</a>
 </body>
 </html>
